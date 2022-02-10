@@ -42,7 +42,8 @@ computed:{
 
   methods:{
       deleteUser(id) {
-      this.$store.dispatch("deleteUser",id)         
+      this.$store.dispatch("deleteUser",id)       
+      window.location.reload()  
     },
   }
 }
