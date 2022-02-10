@@ -15,7 +15,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">phoneNumber</label>
-                  <input type="text" class="form-control" v-model="phoneNumber" >
+                  <input type="number" class="form-control" v-model="phoneNumber" >
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email</label>

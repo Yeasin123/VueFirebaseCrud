@@ -15,7 +15,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Number</label>
-                  <input type="text" class="form-control" v-model="number" >
+                  <input type="number" class="form-control" v-model="number" >
                 </div>
                 <button type="submit" class="btn btn-primary" @click.prevent="updateUser">Submit</button>
               </form>
