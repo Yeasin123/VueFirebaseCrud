@@ -17,9 +17,7 @@ export default {
      allUsers() {
        this.$store.dispatch("getAllUser")
     },
-    deleteUser(id) {
-     this.$store.dispatch("deleteUser",id)         
-    },
+    
     
   },
   created() {

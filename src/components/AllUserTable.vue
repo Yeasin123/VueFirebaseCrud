@@ -39,6 +39,12 @@ export default {
 computed:{
     ...mapState(['users'])
   },
+
+  methods:{
+      deleteUser(id) {
+      this.$store.dispatch("deleteUser",id)         
+    },
+  }
 }
 </script>
 
