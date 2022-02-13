@@ -1,45 +1,54 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {db} from "../firebaaseInit.js"
+import {
+  db
+} from "../firebaaseInit.js"
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    users:[],
+    users: [],
   },
   mutations: {
-    ALL_USERS(state,data) {
-        state.users.push(data)
-   },
-    DELETE_USER(state,id) {
+    ALL_USERS(state, data) {
+      state.users.push(data)
+    },
+    DELETE_USER(state, id) {
       state.users = state.users.filter((user) => {
         return user.id != id
       })
     }
   },
-  
-  
+
+
   actions: {
-    async getAllUser({commit}) {
+    async getAllUser({commit,state}) {
       try {
         const database = await db.collection('user').get();
         database.forEach((doc) => {
-          const data = {
-            firstName:doc.data().firstName,
-            lastName:doc.data().lastName,
-            phoneNumber:doc.data().phoneNumber,
-            userId:doc.id,
+          if (!state.users.some((user) => user.userId === doc.id)) {
+            const data = {
+              firstName: doc.data().firstName,
+              lastName: doc.data().lastName,
+              phoneNumber: doc.data().phoneNumber,
+              userId: doc.id,
+            };
+            commit("ALL_USERS", data)
           }
-          commit("ALL_USERS",data)
         })
-      
-      }catch (error) {
-         console.log(error.message)
+
+      } catch (error) {
+        console.log(error.message)
+
       }
+
     },
-   async deleteUser({commit},id) {
-      await  db.collection("user").doc(id).delete()      
-      commit("DELETE_USER", id)    
+
+    async deleteUser({
+      commit
+    }, id) {
+      await db.collection("user").doc(id).delete()
+      commit("DELETE_USER", id)
     },
     // async updateUserInfo({state},id) {
     //   const update = await  db.collection("user").doc(id).update({
@@ -47,10 +56,10 @@ export default new Vuex.Store({
     //     lastName:state.users.lastName,
     //     phoneNumber:state.users.phoneNumber,
     //  }) 
-    
+
     //  console.log(update)     
     // },
-    
+
   },
   modules: {},
 });
