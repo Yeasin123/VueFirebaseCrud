@@ -15,7 +15,7 @@ export default new Vuex.Store({
     },
     DELETE_USER(state, id) {
       state.users = state.users.filter((user) => {
-        return user.id != id
+        return user.userId != id
       })
     }
   },
@@ -44,21 +44,12 @@ export default new Vuex.Store({
 
     },
 
-    async deleteUser({
-      commit
-    }, id) {
-      await db.collection("user").doc(id).delete()
-      commit("DELETE_USER", id)
+     deleteUser({commit}, id) {
+       db.collection("user").doc(id).delete().then(() => {
+        commit("DELETE_USER", id)
+      })
+      
     },
-    // async updateUserInfo({state},id) {
-    //   const update = await  db.collection("user").doc(id).update({
-    //     firstName:state.users.firstName,
-    //     lastName:state.users.lastName,
-    //     phoneNumber:state.users.phoneNumber,
-    //  }) 
-
-    //  console.log(update)     
-    // },
 
   },
   modules: {},
